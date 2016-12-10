@@ -1,0 +1,51 @@
+<?php
+
+function deck_randomizer_menu() {
+    $items['deck_randomizer'] = array(
+        'title' => 'deck randomizer',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('deck_randomizer_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['deck_randomizer_results'] = array(
+        'title' => 'Decks',
+        'page callback' => 'deck_randomizer_results',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function deck_randomizer_form() {
+    $form['player_number'] = array(
+        '#title' => 'player_number',
+        '#type' => 'textfield',
+        '#description' => t('How many people are playing?'),
+        '#required' => TRUE,
+    );
+    $form['Expansions'] = array(
+        '#title' => 'Expansions',
+        '#type' => 'textfield',
+        '#description' => t('Which Expansions do you want to include?'),
+        '#required' => TRUE,
+    );
+
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Randomize!',
+        '#submit' => array('deck_randomizer_form_submit'),
+    );
+
+    return $form;
+}
+
+function deck_randomizer_form_submit($form, &$form_state) {
+    $_SESSION['deck_results'] = 'test';
+    $form_state['redirect'] = 'deck_randomizer_results';
+}
+
+function deck_randomizer_results() {
+    $final = $_SESSION['deck_results'];
+    return $final;
+}
