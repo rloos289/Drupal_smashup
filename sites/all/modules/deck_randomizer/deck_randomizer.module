@@ -19,15 +19,17 @@ function deck_randomizer_menu() {
 
 function deck_randomizer_form() {
     $form['player_number'] = array(
-        '#title' => 'player_number',
-        '#type' => 'textfield',
-        '#description' => t('How many people are playing?'),
+        '#title' => 'How many people are playing?',
+        '#type' => 'radios',
+        // '#description' => t('How many people are playing?'),
+        '#options' => array('2'=>('2'), '3'=>('3'), '4'=>('4')),
         '#required' => TRUE,
     );
-    $form['Expansions'] = array(
-        '#title' => 'Expansions',
-        '#type' => 'textfield',
-        '#description' => t('Which Expansions do you want to include?'),
+    $form['expansions'] = array(
+        '#title' => 'Which Expansions do you want to include?',
+        '#type' => 'checkboxes',
+        '#options' => array('Base Set'=>('Base Set'), 'Pretty Pretty Smashup'=>('Pretty Pretty Smashup'), 'The Obligatory Cthulu Expansion'=>('The Obligatory Cthulu Expansion')),
+        // '#description' => t('Which Expansions do you want to include?'),
         '#required' => TRUE,
     );
 
@@ -41,11 +43,16 @@ function deck_randomizer_form() {
 }
 
 function deck_randomizer_form_submit($form, &$form_state) {
-    $_SESSION['deck_results'] = 'test';
+    $players = $form_state['values']['player_number'];
+    $expansions = $form_state['values']['expansions'];
+
+
+    $_SESSION['deck_results'] = $players . ' ' . implode(" ",$expansions);
     $form_state['redirect'] = 'deck_randomizer_results';
 }
 
 function deck_randomizer_results() {
     $final = $_SESSION['deck_results'];
+
     return $final;
 }
