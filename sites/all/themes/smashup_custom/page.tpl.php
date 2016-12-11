@@ -78,34 +78,35 @@
     <div id="header"><div class="section clearfix">
 
       <?php if ($site_name || $site_slogan): ?>
-        <div id="name-and-slogan">
+        <div id="name-and-slogan" class='col-sm-6'>
           <?php if ($site_name): ?>
             <?php if ($title): ?>
               <div id="site-name"><strong>
-                <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
+                  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><img src="<?php echo drupal_get_path('theme', 'smashup_custom'); ?>/img/smashup_logo.png"></a>
               </strong></div>
             <?php else: /* Use h1 when the content title is empty */ ?>
-              <h1 id="site-name">
-                <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-              </h1>
+              <div class="col-sm-6">
+                <h1 id="site-name">
+                  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><img src="<?php echo drupal_get_path('theme', 'smashup_custom'); ?>/img/smashup_logo.png"></a>
+                </h1>
+              </div>
+              <!-- /.section, /#navigation -->
               <?php if ($site_slogan): ?>
-                <div class='col-md-6' id="site-slogan"><?php print $site_slogan; ?></div>
+                <div id="site-slogan"><?php print $site_slogan; ?></div>
               <?php endif; ?>
             <?php endif; ?>
           <?php endif; ?>
         </div> <!-- /#name-and-slogan -->
       <?php endif; ?>
-
+      <?php if ($main_menu || $secondary_menu): ?>
+        <div id="navigation" class='col-sm-6 nav'><div class="section">
+          <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Main menu'))); ?>
+          <?php print theme('links__system_secondary_menu', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Secondary menu'))); ?>
+        </div></div> <!-- /.section, /#navigation -->
+      <?php endif; ?>
       <?php print render($page['header']); ?>
 
     </div></div> <!-- /.section, /#header -->
-
-    <?php if ($main_menu || $secondary_menu): ?>
-      <div class="col-sm-6" id="navigation"><div class="section">
-        <?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Main menu'))); ?>
-        <?php print theme('links__system_secondary_menu', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary-menu', 'class' => array('links', 'inline', 'clearfix')), 'heading' => t('Secondary menu'))); ?>
-      </div></div> <!-- /.section, /#navigation -->
-    <?php endif; ?>
 
     <?php if ($breadcrumb): ?>
       <div id="breadcrumb"><?php print $breadcrumb; ?></div>
