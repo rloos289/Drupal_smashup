@@ -28,6 +28,7 @@ function deck_randomizer_form() {
         '#title' => 'Which Expansions do you want to include?',
         '#type' => 'checkboxes',
         '#options' => array('1' => ('Base Set'), 'Awesome Level 9000', 'The Obligatory Cthulu', 'The Science Fiction Double Feature', 'The Big Geeky Box', 'Monster Smash', 'Pretty Pretty Smashup', 'Munchkin Smash Up', 'It\'s Your Fault', 'Cease & Desist'),
+        //had to set 'base set' as 1 because 0 always shows up in the search array
     );
 
     $form['submit'] = array(

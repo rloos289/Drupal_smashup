@@ -1,0 +1,7 @@
+name = Smashup Custom Theme
+core = 7.x
+engine = phptemplate
+stylesheets[all][] = css/style.css
+stylesheets[all][] = css/bootstrap.min.css
+scripts[] = js/scripts.js
+scripts[] = js/bootstrap.min.js
