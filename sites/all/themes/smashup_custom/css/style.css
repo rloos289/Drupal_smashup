@@ -3,13 +3,16 @@ body {
     color: white;
 }
 
-
 a:link {
-    color: white;
+  color: white;
 }
 
 a:visited {
-    color: white;
+  color: white;
+}
+
+a:hover {
+  color: #C4D846;
 }
 
 div.nav h2, .feed-icon, #breadcrumb {
@@ -25,7 +28,7 @@ div.nav h2, .feed-icon, #breadcrumb {
   padding: 5%;
 }
 
-p, .submitted {
+p, .submitted, .content{
   color: white;
 }
 

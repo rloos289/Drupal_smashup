@@ -2,7 +2,7 @@
 
 function deck_randomizer_menu() {
     $items['deck_randomizer'] = array(
-        'title' => 'deck randomizer',
+        'title' => 'Deck Randomizer',
         'page callback' => 'drupal_get_form',
         'page arguments' => array('deck_randomizer_form'),
         'access callback' => TRUE,
@@ -27,8 +27,10 @@ function deck_randomizer_form() {
     $form['expansions'] = array(
         '#title' => 'Which Expansions do you want to include?',
         '#type' => 'checkboxes',
-        '#options' => array('1' => ('Base Set'), 'Awesome Level 9000', 'The Obligatory Cthulu', 'The Science Fiction Double Feature', 'The Big Geeky Box', 'Monster Smash', 'Pretty Pretty Smashup', 'Munchkin Smash Up', 'It\'s Your Fault', 'Cease & Desist'),
+        '#options' => array('1' => ('Base Set'), 'Awesome Level 9000', 'The Obligatory Cthulu Expansion', 'The Science Fiction Double Feature', 'The Big Geeky Box', 'Monster Smash', 'Pretty Pretty Smashup', 'Munchkin Smash Up', 'It\'s Your Fault', 'Cease & Desist'),
         //had to set 'base set' as 1 because 0 always shows up in the search array
+        '#required' => TRUE,
+        // '#element_validate' => array('element_validate_enough_decks'),
     );
 
     $form['submit'] = array(
@@ -44,7 +46,6 @@ function deck_randomizer_form_submit($form, &$form_state) {
     $players = $form_state['values']['player_number'];
     $expansions = $form_state['values']['expansions'];
     $deck_pool = array();
-    // $player_decks = array('player_1'=> '', 'player_2'=> '', 'player_3'=> '', 'player_4'=> '',);
     $player_decks = array();
 
     if (in_array('1', $expansions)) {
