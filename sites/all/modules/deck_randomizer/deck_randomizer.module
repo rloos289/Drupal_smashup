@@ -21,17 +21,13 @@ function deck_randomizer_form() {
     $form['player_number'] = array(
         '#title' => 'How many people are playing?',
         '#type' => 'radios',
-        // '#description' => t('How many people are playing?'),
         '#options' => array('2'=>('2'), '3'=>('3'), '4'=>('4')),
         '#required' => TRUE,
     );
     $form['expansions'] = array(
         '#title' => 'Which Expansions do you want to include?',
         '#type' => 'checkboxes',
-        '#options' => array('Base Set', 'Awesome Level 9000', 'The Obligatory Cthulu', 'The Science Fiction Double Feature', 'The Big Geeky Box', 'Monster Smash', 'Pretty Pretty Smashup', 'Munchkin Smash Up', 'It\'s Your Fault', 'Cease & Desist'),
-        // '#options' => array('Base Set'=>('01'), 'Awesome Level 9000' => ('02'), 'The Obligatory Cthulu Expansion'=>('03'),  'The Science Fiction Double Feature' => ('04'), 'The Big Geeky Box' => ('05'), 'Monster Smash' => ('06'), 'Pretty Pretty Smashup'=>('07'), 'Munchkin Smash Up' => ('08'), 'It\'s Your Fault' => ('09'), 'Cease & Desist' => ('10')),
-        // '#description' => t('Which Expansions do you want to include?'),
-        // '#required' => TRUE,
+        '#options' => array('1' => ('Base Set'), 'Awesome Level 9000', 'The Obligatory Cthulu', 'The Science Fiction Double Feature', 'The Big Geeky Box', 'Monster Smash', 'Pretty Pretty Smashup', 'Munchkin Smash Up', 'It\'s Your Fault', 'Cease & Desist'),
     );
 
     $form['submit'] = array(
@@ -47,58 +43,79 @@ function deck_randomizer_form_submit($form, &$form_state) {
     $players = $form_state['values']['player_number'];
     $expansions = $form_state['values']['expansions'];
     $deck_pool = array();
+    // $player_decks = array('player_1'=> '', 'player_2'=> '', 'player_3'=> '', 'player_4'=> '',);
+    $player_decks = array();
 
-    if (in_array('0', $expansions)) {
+    if (in_array('1', $expansions)) {
         array_push($deck_pool, 'Pirates', 'Aliens', 'Tricksters', 'Ninjas', 'Zombies', 'Robots', 'Wizards', 'Dinosaurs');
     }
 
-    if (in_array('1', $expansions)) {
+    if (in_array('2', $expansions)) {
         array_push($deck_pool, 'Plants', 'Ghosts', 'Steampunks', 'Bear Cavalry');
     }
 
-    if (in_array('2', $expansions)) {
+    if (in_array('3', $expansions)) {
         array_push($deck_pool, 'Innsmouth', 'Miskatonic University', 'Elder Things', 'Minions of Cthulu');
     }
 
-    if (in_array('3', $expansions)) {
+    if (in_array('4', $expansions)) {
         array_push($deck_pool, 'Shapeshifters', 'Time Travelers', 'Spies', 'Cyborg Apes');
     }
 
-    if (in_array('4', $expansions)) {
+    if (in_array('5', $expansions)) {
         array_push($deck_pool, 'Geeks');
     }
 
-    if (in_array('5', $expansions)) {
+    if (in_array('6', $expansions)) {
         array_push($deck_pool, 'Vampires', 'Werewolves', 'Mad Scientists', 'Giant Ants');
     }
 
-    if (in_array('6', $expansions)) {
+    if (in_array('7', $expansions)) {
         array_push($deck_pool, 'Fairies', 'Princesses', 'Mythic Horses', 'Kitty Cats');
     }
 
-    if (in_array('7', $expansions)) {
+    if (in_array('8', $expansions)) {
         array_push($deck_pool, 'Elves', 'Warriors', 'Thieves', 'Clerics', 'Orcs', 'Dwarves', 'Mages', 'Halflings');
     }
 
-    if (in_array("8", $expansions)) {
+    if (in_array("9", $expansions)) {
         array_push($deck_pool, 'Sharks', 'Superheroes', 'Mythic Greeks', 'Dragons', 'Tornadoes');
     }
 
-    if (in_array("9", $expansions)) {
+    if (in_array("10", $expansions)) {
         array_push($deck_pool, 'Changerbots', 'Star Roamers', 'Ignobles', 'Astroknights');
     }
 
-    // echo '<pre>';
-    // print_r($expansions);
-    // echo '</pre>';
-    // exit;
+    $final_decks = array();
+    for ($i=0; $i < ($players * 2); $i++) {
+        $random_index = mt_rand(0,(count($deck_pool)-1)); //get random number
+        $deck = implode(' ',array_splice($deck_pool, $random_index, 1)); //take a random deck out, set as deck
+        array_push($final_decks, $deck);
+    }
 
-    $_SESSION['deck_results'] = $players . ' ' . implode(" ",$expansions) . implode(" ",$deck_pool);
+    if(count($final_decks) == 4) {
+        $player_1 = "Player 1: " . $final_decks[0] . ' and ' . $final_decks[1];
+        $player_2 = "Player 2: " . $final_decks[2] . ' and ' . $final_decks[3];
+            $final_list = array($player_1, $player_2);
+    } elseif(count($final_decks) == 6) {
+        $player_1 = "Player 1: " . $final_decks[0] . ' and ' . $final_decks[1];
+        $player_2 = "Player 2: " . $final_decks[2] . ' and ' . $final_decks[3];
+        $player_3 = "Player 3: " . $final_decks[4] . ' and ' . $final_decks[5];
+            $final_list = array($player_1, $player_2, $player_3);
+    } elseif(count($final_decks) == 8) {
+        $player_1 = "Player 1: " . $final_decks[0] . ' and ' . $final_decks[1];
+        $player_2 = "Player 2: " . $final_decks[2] . ' and ' . $final_decks[3];
+        $player_3 = "Player 3: " . $final_decks[4] . ' and ' . $final_decks[5];
+        $player_4 = "Player 4: " . $final_decks[6] . ' and ' . $final_decks[7];
+            $final_list = array($player_1, $player_2, $player_3, $player_4);
+    }
+
+    $_SESSION['deck_results'] = implode('<br>', $final_list);
+
     $form_state['redirect'] = 'deck_randomizer_results';
 }
 
 function deck_randomizer_results() {
     $final = $_SESSION['deck_results'];
-
     return $final;
 }
