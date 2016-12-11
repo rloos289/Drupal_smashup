@@ -28,9 +28,10 @@ function deck_randomizer_form() {
     $form['expansions'] = array(
         '#title' => 'Which Expansions do you want to include?',
         '#type' => 'checkboxes',
-        '#options' => array('Base Set'=>('Base Set'), 'Pretty Pretty Smashup'=>('Pretty Pretty Smashup'), 'The Obligatory Cthulu Expansion'=>('The Obligatory Cthulu Expansion')),
+        '#options' => array('Base Set', 'Awesome Level 9000', 'The Obligatory Cthulu', 'The Science Fiction Double Feature', 'The Big Geeky Box', 'Monster Smash', 'Pretty Pretty Smashup', 'Munchkin Smash Up', 'It\'s Your Fault', 'Cease & Desist'),
+        // '#options' => array('Base Set'=>('01'), 'Awesome Level 9000' => ('02'), 'The Obligatory Cthulu Expansion'=>('03'),  'The Science Fiction Double Feature' => ('04'), 'The Big Geeky Box' => ('05'), 'Monster Smash' => ('06'), 'Pretty Pretty Smashup'=>('07'), 'Munchkin Smash Up' => ('08'), 'It\'s Your Fault' => ('09'), 'Cease & Desist' => ('10')),
         // '#description' => t('Which Expansions do you want to include?'),
-        '#required' => TRUE,
+        // '#required' => TRUE,
     );
 
     $form['submit'] = array(
@@ -45,9 +46,54 @@ function deck_randomizer_form() {
 function deck_randomizer_form_submit($form, &$form_state) {
     $players = $form_state['values']['player_number'];
     $expansions = $form_state['values']['expansions'];
+    $deck_pool = array();
 
+    if (in_array('0', $expansions)) {
+        array_push($deck_pool, 'Pirates', 'Aliens', 'Tricksters', 'Ninjas', 'Zombies', 'Robots', 'Wizards', 'Dinosaurs');
+    }
 
-    $_SESSION['deck_results'] = $players . ' ' . implode(" ",$expansions);
+    if (in_array('1', $expansions)) {
+        array_push($deck_pool, 'Plants', 'Ghosts', 'Steampunks', 'Bear Cavalry');
+    }
+
+    if (in_array('2', $expansions)) {
+        array_push($deck_pool, 'Innsmouth', 'Miskatonic University', 'Elder Things', 'Minions of Cthulu');
+    }
+
+    if (in_array('3', $expansions)) {
+        array_push($deck_pool, 'Shapeshifters', 'Time Travelers', 'Spies', 'Cyborg Apes');
+    }
+
+    if (in_array('4', $expansions)) {
+        array_push($deck_pool, 'Geeks');
+    }
+
+    if (in_array('5', $expansions)) {
+        array_push($deck_pool, 'Vampires', 'Werewolves', 'Mad Scientists', 'Giant Ants');
+    }
+
+    if (in_array('6', $expansions)) {
+        array_push($deck_pool, 'Fairies', 'Princesses', 'Mythic Horses', 'Kitty Cats');
+    }
+
+    if (in_array('7', $expansions)) {
+        array_push($deck_pool, 'Elves', 'Warriors', 'Thieves', 'Clerics', 'Orcs', 'Dwarves', 'Mages', 'Halflings');
+    }
+
+    if (in_array("8", $expansions)) {
+        array_push($deck_pool, 'Sharks', 'Superheroes', 'Mythic Greeks', 'Dragons', 'Tornadoes');
+    }
+
+    if (in_array("9", $expansions)) {
+        array_push($deck_pool, 'Changerbots', 'Star Roamers', 'Ignobles', 'Astroknights');
+    }
+
+    // echo '<pre>';
+    // print_r($expansions);
+    // echo '</pre>';
+    // exit;
+
+    $_SESSION['deck_results'] = $players . ' ' . implode(" ",$expansions) . implode(" ",$deck_pool);
     $form_state['redirect'] = 'deck_randomizer_results';
 }
 
