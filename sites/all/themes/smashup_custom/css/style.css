@@ -36,3 +36,7 @@ p, .submitted, .content{
   text-align: center;
   color: white;
 }
+
+.form-radios .form-item {
+display:inline;
+}

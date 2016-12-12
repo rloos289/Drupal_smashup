@@ -41,6 +41,18 @@ function deck_randomizer_form() {
 
     return $form;
 }
+//
+// function element_validate_enough_decks($element) {
+//   if ($form_state['values']['player_number'])
+//
+//         echo '<pre>';
+//     print_r($form_state['values']['player_number']);
+//     echo '</pre>';
+//     exit;
+//
+//     form_error($element, t('Please do not use any special characters that are not punctuation'));
+//
+// }
 
 function deck_randomizer_form_submit($form, &$form_state) {
     $players = $form_state['values']['player_number'];
