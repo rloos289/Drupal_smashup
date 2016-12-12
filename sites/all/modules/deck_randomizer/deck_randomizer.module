@@ -30,7 +30,7 @@ function deck_randomizer_form() {
         '#options' => array('1' => ('Base Set'), 'Awesome Level 9000', 'The Obligatory Cthulu Expansion', 'The Science Fiction Double Feature', 'The Big Geeky Box', 'Monster Smash', 'Pretty Pretty Smashup', 'Munchkin Smash Up', 'It\'s Your Fault', 'Cease & Desist'),
         //had to set 'base set' as 1 because 0 always shows up in the search array
         '#required' => TRUE,
-        // '#element_validate' => array('element_validate_enough_decks'),
+        // '#element_validate' => array('element_validate_enough_decks' ),
     );
 
     $form['submit'] = array(
